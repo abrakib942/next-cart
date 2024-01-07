@@ -1,8 +1,14 @@
 "use client";
 
-import { decreaseQuantity, increaseQuantity } from "@/redux/cart/cartSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+} from "@/redux/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { RootState } from "@/redux/store";
+import deleteImg from "@/assets/delete.png";
+import Image from "next/image";
 
 const Navbar = () => {
   const cart = useAppSelector((state: RootState) => state.cart.cart);
@@ -70,7 +76,7 @@ const Navbar = () => {
                 <div>
                   {cart.map((item, i) => (
                     <div className="" key={i}>
-                      <div className="flex item-center gap-4">
+                      <div className="flex item-center gap-2">
                         <p>{item.name}</p>
                         <p
                           onClick={() => dispatch(decreaseQuantity(item._id))}
@@ -85,6 +91,15 @@ const Navbar = () => {
                         >
                           +
                         </p>
+                        <div>
+                          <Image
+                            onClick={() => dispatch(removeFromCart(item._id))}
+                            className="py-2 cursor-pointer"
+                            width={25}
+                            src={deleteImg}
+                            alt=""
+                          />
+                        </div>
                       </div>
                       <div>
                         <p className=" text-red-700">
@@ -94,7 +109,7 @@ const Navbar = () => {
                     </div>
                   ))}
                 </div>
-                <div className="text-info">Subtotal: {subtotal}</div>
+                <div className="text-info">Subtotal: {subtotal}</div>{" "}
                 <div className="card-actions">
                   <button className="btn btn-primary btn-block">
                     View cart
