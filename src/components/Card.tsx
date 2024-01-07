@@ -1,6 +1,5 @@
 "use client";
 
-import { IProduct } from "@/app/page";
 import { addToCart } from "@/redux/cart/cartSlice";
 import { useAppDispatch } from "@/redux/hook";
 

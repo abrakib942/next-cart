@@ -1,20 +1,19 @@
 "use client";
 
+import { decreaseQuantity, increaseQuantity } from "@/redux/cart/cartSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { RootState } from "@/redux/store";
-import { useEffect } from "react";
 
 const Navbar = () => {
-  const dispatch = useAppDispatch();
-
-  // Use RootState to specify the type of the entire Redux state
   const cart = useAppSelector((state: RootState) => state.cart.cart);
 
-  // Calculate total items and subtotal
-  const totalItems = cart.reduce(
+  const dispatch = useAppDispatch();
+
+  const totalQuantity = cart.reduce(
     (total, item) => total + (item.quantity || 0),
     0
   );
+
   const subtotal = cart.reduce(
     (total, item) => total + item.price * (item.quantity || 0),
     0
@@ -56,7 +55,7 @@ const Navbar = () => {
                   />
                 </svg>
                 <div className="badge badge-sm indicator-item">
-                  {totalItems}
+                  {cart.length}
                 </div>
               </div>
             </div>
@@ -65,7 +64,36 @@ const Navbar = () => {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
             >
               <div className="card-body">
-                <div className="font-bold text-lg">{totalItems}</div>
+                <div className="font-bold text-lg">
+                  Total {cart.length} Products added
+                </div>
+                <div>
+                  {cart.map((item, i) => (
+                    <div className="" key={i}>
+                      <div className="flex item-center gap-4">
+                        <p>{item.name}</p>
+                        <p
+                          onClick={() => dispatch(decreaseQuantity(item._id))}
+                          className="font-bold bg-secondary px-1 rounded-full cursor-pointer"
+                        >
+                          -
+                        </p>
+                        <p>x{item.quantity}</p>
+                        <p
+                          onClick={() => dispatch(increaseQuantity(item._id))}
+                          className="font-bold bg-accent rounded-full px-1 cursor-pointer"
+                        >
+                          +
+                        </p>
+                      </div>
+                      <div>
+                        <p className=" text-red-700">
+                          ${item.price * item.quantity}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
                 <div className="text-info">Subtotal: {subtotal}</div>
                 <div className="card-actions">
                   <button className="btn btn-primary btn-block">
