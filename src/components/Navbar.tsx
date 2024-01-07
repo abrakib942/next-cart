@@ -9,16 +9,12 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { RootState } from "@/redux/store";
 import deleteImg from "@/assets/delete.png";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 const Navbar = () => {
   const cart = useAppSelector((state: RootState) => state.cart.cart);
 
   const dispatch = useAppDispatch();
-
-  const totalQuantity = cart.reduce(
-    (total, item) => total + (item.quantity || 0),
-    0
-  );
 
   const subtotal = cart.reduce(
     (total, item) => total + item.price * (item.quantity || 0),
@@ -124,4 +120,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default dynamic(() => Promise.resolve(Navbar), { ssr: false });
