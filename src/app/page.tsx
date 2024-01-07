@@ -1,3 +1,5 @@
+"use client";
+
 import Card from "@/components/Card";
 
 export type IProduct = {
@@ -34,7 +36,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="my-12">
+    <div className="my-12 px-12">
       <div className="text-center mb-8">
         <button className="btn btn-accent">Create New</button>
       </div>
