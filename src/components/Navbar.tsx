@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 sticky top-0">
       <div className="navbar-start">
         <a className="btn btn-ghost text-xl">Next Cart</a>
       </div>
