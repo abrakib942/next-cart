@@ -21,7 +21,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="px-12 sticky top-0">
+    <div className="px-12 sticky top-0 z-50">
       <div className="navbar bg-base-100 ">
         <div className="navbar-start">
           <a className="btn btn-ghost text-xl">Next Cart</a>
